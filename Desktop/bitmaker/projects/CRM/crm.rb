@@ -1,90 +1,164 @@
-class Contact
+require_relative "contact.rb"
+class CRM
 
-  attr_reader :id
-  attr_accessor :first_name, :last_name, :email, :note
-
-  @@contacts = []
-  @@id = 1
-
-  # This method should initialize the contact's attributes
-  def initialize(first_name, last_name, email, note)
-    @first_name = first_name
-    @last_name = last_name
-    @email = email
-    @note = note
-    @id = @@id
-    @@id += 1
+  def initialize()
+    @fields = ["first_name", "last_name", "email", "note", "cancel"]
   end
 
-  # This method should call the initializer,
-  # store the newly created contact, and then return it
-  def self.create(first_name, last_name, email, note)
-    new_contact = Contact.new(first_name, last_name, email, note)
-    @@contacts << new_contact
-    return new_contact
+  def main_menu
+    while true
+      print_main_menu
+      user_selected = gets.to_i
+      call_option(user_selected)
+    end
   end
 
+  def print_main_menu
+    system "clear"
+    puts "[1] add a new contact"
+    puts "[2] modify an existing contact"
+    puts "[3] delete a contact"
+    puts "[4] display all the contacts"
+    puts "[5] search by attribute"
+    puts "[6] exit"
+    puts "enter a number"
   end
 
-  # This method should return all of the existing contacts
-  def self.all
-    @@contacts
+  def call_option(user_selected)
+    case user_selected
+    when 1 then add_new_contact
+    when 2 then modify_existing_contact
+    when 3 then delete_contact
+    when 4 then display_all_contacts
+    when 5 then search_by_attribute
+    when 6 then abort
+    end
   end
 
-  # This method should accept an id as an argument
-  # and return the contact who has that id
-  def self.find
-    @@id = @contact + "#{id}"
+  def add_new_contact
+    system "clear"
+    print "enter first name: "
+    first_name = gets.chomp
 
+    print "enter last name: "
+    last_name = gets.chomp
+
+    print "email: "
+    email = gets.chomp
+
+    print "note: "
+    note = gets.chomp
+
+    Contact.create(first_name, last_name, email, note)
   end
 
-  # This method should allow you to specify
-  # 1. which of the contact's attributes you want to update
-  # 2. the new value for that attribute
-  # and then make the appropriate change to the contact
-  def update
-    case @id
-    when @first_name
-      @first_name = first name
-    when @last_name
-      @last_name = last name
-    when @email
-      @email = email
-    when @note
-      @note = note
+
+  def display_contact contact
+    puts "id: #{contact.id} | first name: #{contact.first_name} | last name: #{contact.last_name} | email: #{contact.email} | note: #{contact.note}"
+  end
+
+  def display_all_contacts
+
+    system "clear"
+    contacts = Contact.all
+
+    contacts.each { |c| display_contact(c) }
+    gets
+  end
+
+  def select_field
+    @fields.each_with_index { |val, index| puts "[#{index+1}] #{val}" }
+    puts "enter a number"
+
+    op = 0
+    loop do
+      op = gets.to_i
+      # some code here
+      return op if op > 0 && op < 6
+      puts "Invalid option"
     end
 
-
-
-
   end
 
-  # This method should work similarly to the find method above
-  # but it should allow you to search for a contact using attributes other than id
-  # by specifying both the name of the attribute and the value
-  # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by
+  def search_by_attribute
+    system "clear"
+    op = select_field
 
+    if op != 5
+      print "enter the term: "
+      value = gets.chomp
+
+      contact = Contact.find_by(@fields[op - 1], value)
+      if !contact
+        puts "Contact not found"
+        gets
+      else
+
+        display_contact(contact)
+        gets
+      end
+    end
   end
 
-  # This method should delete all of the contacts
-  def self.delete_all
+  def modify_existing_contact
 
+    system "clear"
+
+    if Contact.all.count > 0
+
+      puts "id of existing contact required"
+      id = gets.to_i
+
+      contact = Contact.find(id)
+
+      if !contact
+        puts "Contact not found"
+        gets
+      else
+        op = select_field
+
+        if op != 5
+          print "enter #{@fields[op-1].gsub('_', ' ')}: "
+          value = gets.chomp
+
+          contact.update(@fields[op-1], value)
+        end
+      end
+
+    else
+      puts "No contact found"
+      gets
+    end
   end
 
-  def full_name
+  def delete_contact
 
+    system "clear"
+
+    if Contact.all.count > 0
+
+      puts "\nid of existing contact required"
+      id = gets.to_i
+
+      contact = Contact.find(id)
+      if !contact
+        puts "Contact not found"
+        gets
+      else
+        contact.delete
+      end
+    else
+      puts "No contact found"
+      gets
+    end
   end
-
-  # This method should delete the contact
-  # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete
-
-  end
-
-  # Feel free to add other methods here, if you need them.
 
 end
 
+Contact.create("Lorem", "Impsum", "lorem@teste.com", "abc abc")
+Contact.create("John", "Impsum A", "lorem_a@teste.com", "abc abc")
+Contact.create("Ann", "Impsum B", "lorem_b@teste.com", "abc abc")
+Contact.create("Foo", "Impsum C", "lorem_c@teste.com", "abc abc")
 
-contact = Contact.new("bob", "dole", "123@abc.com", "random")
+a_crm_app = CRM.new
+a_crm_app.main_menu
