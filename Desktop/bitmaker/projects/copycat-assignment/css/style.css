@@ -1,0 +1,189 @@
+* {
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body {
+    margin: 0;
+}
+
+nav > a {
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* HELPERS */
+.bg_success{
+    background-color: #06D6A0;
+}
+.bg_primary{
+    background-color: #26547C;
+}
+.bg_danger{
+    background-color: #EF476F;
+}
+.bg_warning{
+    background-color: #FFD166;
+}
+.bg_default{
+    background-color: #FFFCF9;
+}
+.text-left{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.row::after{
+    content:no-close-quote;
+    display: table;
+    clear: both;
+}
+.img-responsive{
+    max-width:100%;
+    height: auto;
+    display: block;
+}
+.col-md-2, .col-md-3, .col-md-4, .col-md-5 ,.col-md-6, .col-md-7, .col-md-12,
+.col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5 ,.col-sm-6, .col-sm-7, .col-sm-12{
+    float:left;
+}
+.col-sm-2{
+    width:16.66%;
+}
+.col-sm-3{
+    width:25%;
+}
+.col-sm-4{
+    width:33.33%;
+}
+.col-sm-5{
+    width:41.66%;
+}
+.col-sm-6{
+    width:50%;
+}
+.col-sm-7{
+    width:58.33%;
+}
+.col-sm-12{
+    width:100%;
+}
+@media (min-width: 550px){
+    .col-md-2{
+        width:16.66%;
+    }
+    .col-md-3{
+        width:25%;
+    }
+    .col-md-4{
+        width:33.33%;
+    }
+    .col-md-5{
+        width:41.66%;
+    }
+    .col-md-6{
+        width:50%;
+    }
+    .col-md-7{
+        width:58.33%;
+    }
+    .col-md-12{
+        width:100%;
+    }
+}
+/* -- */
+.logo {
+    margin: 0;
+    color: white;
+    font-size: 30px;
+}
+#cats,
+#products,
+#about {
+    padding: 30px 20px;
+}
+.product-wrapper .row{
+    margin: -10px;
+}
+.product-wrapper .row > div{
+    padding: 10px;
+}
+.about {
+    color: white;
+}
+header, footer {
+    padding: 20px;
+}
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+.product-item {
+    border: 3px solid black;
+}
+.hero-content{
+    padding:25px 0;
+}
+.hero h2{
+    display: inline-block;
+    margin:0 auto;
+    font-size: 20px;
+    border-bottom: 5px solid #EF476F;
+}
+.team h3 {
+    text-transform: uppercase;
+    text-align: center;
+    color: #EF476F;
+}
+#about p {
+    color:white;
+}
+
+@media screen and (min-width: 550px) {
+
+    html {
+        font-size: 1.2em;
+    }
+
+    .product-wrapper {
+        margin: 0px;
+    }
+
+    .hero {
+        background-color: #26547C;
+        padding-bottom: 5px;
+    }
+
+    .hero h2 {
+        display: block;
+        font-size: 36px;
+        color: white;
+        border-bottom: none;
+    }
+
+    header {
+        overflow: hidden;
+        height: 60px;
+        padding: 0 20px;
+    }
+
+    .logo {
+        float: left;
+        line-height: 60px;
+        font-size: 18px;
+    }
+
+    nav {
+        float: right;
+        padding: 0;
+    }
+
+    nav > a {
+        display: inline-block;
+        margin-right: 10px;
+        line-height: 60px;
+    }
+}
